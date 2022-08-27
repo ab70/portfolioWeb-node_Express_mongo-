@@ -26,6 +26,31 @@ function authControllers(){
                 res.json({status: '401'})
             }
         },
+
+        //login via JWT POST
+        async userLogin(req,res){
+            try{
+                const findUser = user.findOne({
+                    userEmail: req.body.email
+                })
+                if(!findUser){
+                    res.json({message: "No user found"})
+                }
+                else{
+                    const hasedPass = CryptoJS.AES.decrypt(findUser.userPass,process.env.SECRET_JWT_key).toString(CryptoJS.enc.Utf8)
+                    if ( !hasedPass == req.body.pass) {
+                        res.json({status: 401, message: "Wrong Credential"})
+                    }
+                    if(hasedPass == req.body.pass){
+                        res.json({status: 200, message: "Login Successful"})
+                    }
+                }
+            }
+            catch(err){
+                res.json({status: 400, message: err})
+            }
+           
+        }
         
     }
 }
