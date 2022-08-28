@@ -32,23 +32,33 @@ function authControllers(){
         async userLogin(req,res){
             try{
                 const findUser = await user.findOne({
-                    userEmail: req.body.email
+                    useEmail: req.body.lemail
                 })
-                if(!findUser){
-                    res.json({message: "No user found"})
-                }
-                else{
+                console.log(findUser);
+                
+                if(findUser){
                     const hasedPass = CryptoJS.AES.decrypt(findUser.userPass,process.env.SECRET_JWT_key).toString(CryptoJS.enc.Utf8)
-                    if ( hasedPass !== req.body.pass) {
+                    console.log(hasedPass);
+                    if ( hasedPass !== req.body.lpass) {
                         
                         res.json({status: 401, message: "Wrong Credential"})
                     }
-                    if(hasedPass == req.body.pass){
-                        const token = jwt.sign({id: findUser._id, role: findUser.isAdmin},process.env.SECRET_JWT_key,{expiresIn:'1m'})
-                        res.cookie('jwt_token',token).json({status:200,url: '/admin', message: 'Login Successfuil'})
+                    if(hasedPass == req.body.lpass){
+                        console.log('now pass matched');
+                        const token = jwt.sign({id: findUser._id, role: findUser.isAdmin},process.env.SECRET_JWT_key,{expiresIn:'1h'})
+                        if(findUser.isAdmin == true){
+                            var rUrl = '/admin'
+                        }
+                        else{
+                            var rUrl = '/user'
+                        }
+                        res.cookie('jwt_token',token).json({status:200, url: rUrl, message: 'Login Successfuil'})
                         
                     }
                     
+                }
+                if(!findUser){
+                    res.json({message: "No user found"})
                 }
             }
             catch(err){

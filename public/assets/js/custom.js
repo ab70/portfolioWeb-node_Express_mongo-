@@ -87,11 +87,11 @@ $(document).ready(function(){
     //login POST 
     $('#login').on('click', function (event) {
         event.preventDefault()
-        var email = $('#logEmail')
-        var pass = $('#logPassword')
+        var logemail = $('#logEmail')
+        var logpass = $('#logPassword')
         var loginInfo = {
-            email : email.val(),
-            pass : pass.val()
+            lemail : logemail.val(),
+            lpass : logpass.val()
         }
 
         $.ajax({
@@ -102,7 +102,7 @@ $(document).ready(function(){
             success: function (response) {
                 if(response.status == 200){
                     $('#loginsuccalertMessage').show().fadeOut(4000)
-                    window.locationbar.href = response.url
+                    window.location.replace(response.url)
                 }
                 if(response.status == 401){
                     $('#loginfailalertMessage').show().fadeOut(4000)
