@@ -18,6 +18,7 @@ function initRoute(app){
 	app.post('/postLanguage',adminControllers().postLanguage)
 	app.get(['/login','/registration'], authControllers().loginRegPage)
 	app.post('/registration', authControllers().userRegistration)
+	app.post('/login',authControllers().userLogin)
 	
 }
 

@@ -84,11 +84,39 @@ $(document).ready(function(){
         });
     });
 
+    //login POST 
+    $('#login').on('click', function (event) {
+        event.preventDefault()
+        var email = $('#logEmail')
+        var pass = $('#logPassword')
+        var loginInfo = {
+            email : email.val(),
+            pass : pass.val()
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            data: loginInfo,
+            //dataType: "dataType",
+            success: function (response) {
+                if(response.status == 200){
+                    $('#loginsuccalertMessage').show().fadeOut(4000)
+                    window.locationbar.href = response.url
+                }
+                if(response.status == 401){
+                    $('#loginfailalertMessage').show().fadeOut(4000)
+                }
+            }
+        });
+
+    });
+
         
    
    
 
-})
+})//body end
 
 
 

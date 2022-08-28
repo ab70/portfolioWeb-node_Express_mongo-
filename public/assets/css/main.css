@@ -2350,9 +2350,7 @@ canvas.particles-js-canvas-el {
   color: whitesmoke;
   font-weight: 300;
 }
-#succalertMessage{
+#loginfailalertMessage, #loginsuccalertMessage, #failalertMessage, #succalertMessage{
   display: none;
 }
-#failalertMessage{
-  display: none;
-}
+

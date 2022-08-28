@@ -1,6 +1,7 @@
 const user = require('../../models/user')
 const jwt = require('jsonwebtoken')
 const CryptoJS = require('crypto-js')
+const cookieParser = require('cookie-parser')
 
 
 function authControllers(){
@@ -30,7 +31,7 @@ function authControllers(){
         //login via JWT POST
         async userLogin(req,res){
             try{
-                const findUser = user.findOne({
+                const findUser = await user.findOne({
                     userEmail: req.body.email
                 })
                 if(!findUser){
@@ -38,12 +39,16 @@ function authControllers(){
                 }
                 else{
                     const hasedPass = CryptoJS.AES.decrypt(findUser.userPass,process.env.SECRET_JWT_key).toString(CryptoJS.enc.Utf8)
-                    if ( !hasedPass == req.body.pass) {
+                    if ( hasedPass !== req.body.pass) {
+                        
                         res.json({status: 401, message: "Wrong Credential"})
                     }
                     if(hasedPass == req.body.pass){
-                        res.json({status: 200, message: "Login Successful"})
+                        const token = jwt.sign({id: findUser._id, role: findUser.isAdmin},process.env.SECRET_JWT_key,{expiresIn:'1m'})
+                        res.cookie('jwt_token',token).json({status:200,url: '/admin', message: 'Login Successfuil'})
+                        
                     }
+                    
                 }
             }
             catch(err){
