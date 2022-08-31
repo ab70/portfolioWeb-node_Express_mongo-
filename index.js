@@ -35,7 +35,7 @@ catch(err){
 
 //set statics and layouts
 app.use(expressLayout)
-app.use(express.static(path.join(__dirname,'/public/assets')))
+app.use(express.static(path.join(__dirname,'/public/assets/')))
 
 
 app.use(express.urlencoded({extended: false}))
