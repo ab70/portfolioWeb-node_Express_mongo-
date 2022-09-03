@@ -16,6 +16,10 @@ function adminControllers(){
         newShow(req,res){
             res.render('admin/newShow',{layout: 'layout/adminlayout'})
         },
+        async home(req,res){
+            const alleducation  = await education.find().sort({startyear: -1})
+            res.render('home', {layout: 'layout/layout', edu : alleducation})
+        },
         //post projects
         async projectPost(req,res){
             const newProject = new projects({

@@ -34,11 +34,9 @@ function authControllers(){
                 const findUser = await user.findOne({
                     useEmail: req.body.lemail
                 })
-                console.log(findUser);
-                
                 if(findUser){
                     const hasedPass = CryptoJS.AES.decrypt(findUser.userPass,process.env.SECRET_JWT_key).toString(CryptoJS.enc.Utf8)
-                    console.log(hasedPass);
+                    
                     if ( hasedPass !== req.body.lpass) {
                         
                         res.json({status: 401, message: "Wrong Credential"})
@@ -46,6 +44,9 @@ function authControllers(){
                     if(hasedPass == req.body.lpass){
                         console.log('now pass matched');
                         const token = jwt.sign({id: findUser._id, role: findUser.isAdmin},process.env.SECRET_JWT_key,{expiresIn:'1h'})
+                        // const {userPass, ...others} = findUser._doc
+                        // req.currentUser = others
+                        // console.log(req.currentUser);
                         if(findUser.isAdmin == true){
                             var rUrl = '/admin'
                         }
@@ -59,6 +60,7 @@ function authControllers(){
                 }
                 if(!findUser){
                     res.json({message: "No user found"})
+                    req
                 }
             }
             catch(err){

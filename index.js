@@ -8,6 +8,7 @@ const mongoose =  require('mongoose')
 const dotenv = require('dotenv')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 
 //dot env config
 dotenv.config()
@@ -37,9 +38,10 @@ catch(err){
 app.use(expressLayout)
 app.use(express.static(path.join(__dirname,'/public/assets/')))
 
-
-app.use(express.urlencoded({extended: false}))
+app.use(bodyParser.json())
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
 app.set('views',path.join(__dirname,'/resources/views'))
 app.set('layout',path.join(__dirname,'/resources/views/layout/layout'))
 app.set('view engine','ejs')
