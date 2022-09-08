@@ -12,12 +12,21 @@ function blogControllers(){
             
             const blogs  = new blog({
                 title: req.body.blog_title,
-                slug:  req.body.blog_title,
+                slug:  req.body.blog_title.replace(/ /g, "-").toLowerCase(),
                 blogimage: req.file.filename,
                 author : req.currentUser._id,
                 blogBody : req.body.comments,
             })
-            console.log(blogs);
+            try{
+                const newBlog = await blogs.save()
+                if(newBlog){
+                    res.json({message: "Blog saved"})
+                    res.redirect('/ubog')
+                }
+            }
+            catch(err){
+                res.json({message: "Cant enter Blog"})
+            }
             
             
         }

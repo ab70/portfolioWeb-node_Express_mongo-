@@ -8,23 +8,33 @@ const blogControllers = require('../app/http/controllers/blogControllers')
 const {adminAuth,userAuth} = require('../app/http/middlewares/authMiddleware')
 
 function initRoute(app){
-	
+	//Views: 
 	app.get('/', adminControllers().home)
+	
+
+	//admin::get
 	app.get('/admin', adminAuth, adminControllers().dashboard)
 	app.get('/addShowcase', adminControllers().newShow)
-	app.post('/addShowcase', uploads.single('project_img'),adminControllers().projectPost)
 	app.get('/addEducation', adminControllers().educationForm)
-	app.post('/addEducation', adminControllers().educationPost)
 	app.get('/addExperience', adminControllers().experience)
-	app.post('/addExperience', adminControllers().experiencePost)
 	app.get('/addSkillLanguage',adminControllers().skillLanguage)
+	
+
+	//admin::post
+	app.post('/addShowcase', uploads.single('project_img'),adminControllers().projectPost)
+	app.post('/addEducation', adminControllers().educationPost)
+	app.post('/addExperience', adminControllers().experiencePost)
 	app.post('/postSkill',adminControllers().postSkill)
 	app.post('/postLanguage',adminControllers().postLanguage)
+
+	//Auth::type
 	app.get(['/login','/registration'], authControllers().loginRegPage)
 	app.post('/registration', authControllers().userRegistration)
 	app.post('/login',authControllers().userLogin)
+
+	//user
 	app.get('/user',userAuth, userControllers().userDash)
-	app.get('/ublog', blogControllers().blogPage)
+	app.get('/ublog',userAuth, blogControllers().blogPage)
 	app.post('/ublog', userAuth, uploads.single('blog_img'), blogControllers().postBlog)
 	
 }
