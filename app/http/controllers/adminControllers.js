@@ -19,7 +19,9 @@ function adminControllers(){
         },
         async home(req,res){
             const alleducation  = await education.find().sort({startyear: -1})
-            res.render('home', {layout: 'layout/layout', edu : alleducation})
+            const allworkSkills = await workSkill.find()
+            const allExp  = await experience.find()
+            res.render('home', {layout: 'layout/layout', edu : alleducation, workSkills: allworkSkills, exp: allExp})
         },
         //post projects
         async projectPost(req,res){

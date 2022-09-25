@@ -7,7 +7,7 @@
                             <div class="col-lg-12">
                                 <div class="text-center title">
                                     <h2 class="text-dark">My <span class="base-color">Resume</span></h2>
-                                    <p class="text-muted max-width-450 mb-5">In a professional context it often happens that private clients corder a publication to be made.</p>
+                                    <p class="text-muted max-width-450 mb-5"></p>
                                 </div>
                             </div>
                         </div>
@@ -42,45 +42,25 @@
                                     <i class="lni-pencil base-color"></i>Experience
                                 </h3>
                                 <div class="timeline-items box-border">
+                                    <% exp.forEach(ex =>{ %>
+                                    <div class="timeline-item">
+                                        <div class="timeline-icon"></div>
+                                        <div class="timeline-contents">
+                                            <div class="time-line-header">
+                                                <h5 class="timeline-title"><%= ex.workTitle %></h5>
+                                                <h6 class="timeline-title"><%= ex.institute %></h6>
+                                                <p class="timeline-year"><%= ex.startYear %> - <%= ex.endYear %></p>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <p><%= ex.workDesc %></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
                                     <!--    Item 01   -->
-                                    <div class="timeline-item">
-                                        <div class="timeline-icon"></div>
-                                        <div class="timeline-contents">
-                                            <div class="time-line-header">
-                                                <h6 class="timeline-title">Master In Computer Science</h6>
-                                                <p class="timeline-year">2008 - 2012</p>
-                                            </div>
-                                            <div class="timeline-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--    Item 02   -->
-                                    <div class="timeline-item">
-                                        <div class="timeline-icon"></div>
-                                        <div class="timeline-contents">
-                                            <div class="time-line-header">
-                                                <h6 class="timeline-title">Studied at New York University</h6>
-                                                <p class="timeline-year">2012 - 2014</p>
-                                            </div>
-                                            <div class="timeline-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--    Item 03   -->
-                                    <div class="timeline-item">
-                                        <div class="timeline-icon"></div>
-                                        <div class="timeline-contents">
-                                            <div class="time-line-header">
-                                                <h6 class="timeline-title">UI/UX Developer </h6>
-                                                <p class="timeline-year">2014 - 2015</p>
-                                            </div>
-                                            <div class="timeline-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare.</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
+                                    
+                                    <!-- item end -->
                                 </div>
                             </div>
                         </div>
@@ -93,26 +73,15 @@
                                     <h3 class="mb-0">Work <span class="base-color"> Skills</span></h3>
                                 </div>
                                 <div id="skills" class="skill-box box-border">
-                                    <div class="skillbar clearfix" data-percent="95%">
-                                        <div class="skillbar-title"><span>HTML</span></div>
+                                    <% workSkills.forEach(w =>{ %>
+                                    <div class="skillbar clearfix" data-percent="<%= w.skillLevel %>%">
+                                        <div class="skillbar-title"><span><%= w.skillName%></span></div>
                                         <div class="skillbar-bar fill-skillbar"></div>
-                                        <div class="skill-bar-percent">95%</div>
+                                        <div class="skill-bar-percent"><%= w.skillLevel %>%</div>
                                     </div>
-                                    <div class="skillbar clearfix " data-percent="55%">
-                                        <div class="skillbar-title"><span>CSS</span></div>
-                                        <div class="skillbar-bar fill-skillbar"></div>
-                                        <div class="skill-bar-percent">85%</div>
-                                    </div>
-                                    <div class="skillbar clearfix" data-percent="75%">
-                                        <div class="skillbar-title"><span>PHP</span></div>
-                                        <div class="skillbar-bar fill-skillbar"></div>
-                                        <div class="skill-bar-percent">75%</div>
-                                    </div>
-                                    <div class="skillbar clearfix" data-percent="80%">
-                                        <div class="skillbar-title"><span>JQuery</span></div>
-                                        <div class="skillbar-bar fill-skillbar"></div>
-                                        <div class="skill-bar-percent">80%</div>
-                                    </div>
+                                    <% }) %>
+                                    
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-6">

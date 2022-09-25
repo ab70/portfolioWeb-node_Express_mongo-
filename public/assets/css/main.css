@@ -2368,4 +2368,10 @@ canvas.particles-js-canvas-el {
 .insloc{
   display: inline-block;
 }
+.laravel-color{
+  color: #F05340;
+}
+.react-color{
+  color: #61dbfb;
+}
 
