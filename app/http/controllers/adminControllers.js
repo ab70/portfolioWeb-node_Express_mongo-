@@ -6,6 +6,7 @@ const {workSkill,languageSkill} = require('../../models/skillLanguage')
 const user = require('../../models/user')
 const jwt = require('jsonwebtoken')
 const CryptoJS = require('crypto-js')
+const nodemailer = require('nodemailer')
 
 function adminControllers(){
     return{
@@ -115,6 +116,41 @@ function adminControllers(){
                 console.log(err);
             }
         },
+
+        //send email (contact form)
+        async sendEmail(req,res){
+            try{
+                let transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: process.env.mailer_email,
+                        pass: process.env.mailer_pass
+                    }
+                })
+                
+                let mailbody = {
+                    from : req.body.email,
+                    to : 'nurulabrar2369@gmail.com',
+                    subject : `Portfolio website mail sent by ${req.body.email} , subject: ${req.body.subject} `,
+                    text : req.body.comments
+
+                }
+                transporter.sendMail(mailbody, (err)=>{
+                    if (err) {
+                        console.log(err);
+                    }
+                    else{
+                        console.log('email sent!!!');
+                        res.redirect('/#contact')
+                    }
+                })
+
+            }
+            catch(err){
+                console.log(err);
+
+            }
+        }
 
                
         

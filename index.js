@@ -25,8 +25,8 @@ try{
 	const connection = mongoose.connect(process.env.Mongoose_Link,{useNewUrlParser: true, useUnifiedTopology: true})
 	if(connection){
 		console.log("Database connected");
-	}
-}
+	
+}}
 catch(err){
 	console.log(err);
 }

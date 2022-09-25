@@ -10,6 +10,7 @@ const {adminAuth,userAuth} = require('../app/http/middlewares/authMiddleware')
 function initRoute(app){
 	//Views: 
 	app.get('/', adminControllers().home)
+	app.post('/contact', adminControllers().sendEmail)
 	
 
 	//admin::get
