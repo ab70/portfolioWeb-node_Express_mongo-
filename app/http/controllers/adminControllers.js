@@ -14,16 +14,17 @@ function adminControllers(){
         dashboard(req,res){
             res.render('admin/dashboard', {layout: 'layout/adminlayout'})
         },
-        newShow(req,res){
-            res.render('admin/newShow',{layout: 'layout/adminlayout'})
+         newShow(req,res){
+                res.render('admin/newShow',{layout: 'layout/adminlayout'})      
         },
         async home(req,res){
             const alleducation  = await education.find().sort({startyear: -1})
-            const allworkSkills = await workSkill.find()
+            const allworkSkills = await workSkill.find().sort({skillLevel: -1})
             const allExp  = await experience.find()
-            res.render('home', {layout: 'layout/layout', edu : alleducation, workSkills: allworkSkills, exp: allExp})
+            const allProjects = await projects.find()
+            res.render('home', {layout: 'layout/layout',allprojects:allProjects,  edu : alleducation, workSkills: allworkSkills, exp: allExp})
         },
-        //post projects
+        //post projects showcase
         async projectPost(req,res){
             const newProject = new projects({
                 project_name : req.body.project_name,
@@ -34,6 +35,7 @@ function adminControllers(){
             try{
                 const saveProject = await newProject.save()
                 console.log('product saved');
+                res.redirect('/addShowcase')
             }
             catch(err){
                 console.log(err);

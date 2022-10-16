@@ -15,7 +15,7 @@ function initRoute(app){
 
 	//admin::get
 	app.get('/admin', adminAuth, adminControllers().dashboard)
-	app.get('/addShowcase', adminControllers().newShow)
+	app.get('/addShowcase', adminAuth, adminControllers().newShow)
 	app.get('/addEducation', adminControllers().educationForm)
 	app.get('/addExperience', adminControllers().experience)
 	app.get('/addSkillLanguage',adminControllers().skillLanguage)
