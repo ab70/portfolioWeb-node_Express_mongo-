@@ -60,7 +60,7 @@ function authControllers(){
                 }
                 if(!findUser){
                     res.json({message: "No user found"})
-                    req
+                    
                 }
             }
             catch(err){
